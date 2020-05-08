@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica Ajax</title>
+</head>
+<body>
+    <select id="slcPaises">
+        
+    </select>
+    <button id="btnCargarPaises">Cargar países</button>
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous">
+</script>
+
+  <script>
+      function doClickCargarPaises(e) {
+        $("#slcPaises").empty();
+        //GET
+        $.ajax( "paises.json" ) //Direccion URL
+            .done(function(data) {  //Si hay respuesta exitosa
+                //Llenar select
+               for(var i=0; i<data.lenght; i++)
+               {
+                $("#slcPaises").append("<option>" + 
+                    data[i].name +
+                  "</option>");
+               }
+              
+            })
+            .fail(function() {
+                alert("error");
+            })
+            .always(function() {
+               
+            });
+ 
+      }
+      //Funcion que se ejecuta una vez de cargar todo
+      //La hicimos mediante jQuery
+      $(function () {
+        //Codigo de aqui se ejecuta ya que cargo todo
+
+        //Toma el boton asignale un listener de un click
+        //Responde al evennto click con la funccion parametro
+        $("#btnCargarPaises").click(doClickCargarPaises);
+    });
+  </script>
+</body>
+</html>
